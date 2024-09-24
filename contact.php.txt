@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form with reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <style>
+        form {
+            background-color: lightcyan; /* Changed background color */
+            padding: 40px; /* Adjusted padding */
+            border-radius: 15px; /* Modified border radius */
+            max-width: 450px; /* Increased max width */
+            margin: auto;
+        }
+        input[type="submit"] {
+            background-color: darkgreen; /* Changed button color */
+            color: white;
+            padding: 12px; /* Increased padding */
+            border: none;
+            border-radius: 5px; /* Adjusted border radius */
+            font-size: 18px; /* Increased font size */
+            width: 100%;
+        }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 12px; /* Increased padding for inputs */
+            border: none;
+            border-radius: 5px; /* Adjusted border radius */
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 120px; /* Increased height of textarea */
+        }
+    </style>
+
+    <form id="userForm">
+        <p><input name="fullName" type="text" placeholder="Full Name" required/></p> <!-- Changed name attribute -->
+        <p><input name="userEmail" type="email" placeholder="Email Address" required/></p> <!-- Changed name attribute -->
+        <p><textarea name="userMessage" placeholder="Your Message" required></textarea></p> <!-- Changed name attribute -->
+        <div class="g-recaptcha" data-sitekey="6Ldsv0oqAAAAALiaJUmeI3JML_G-vFLXAWbqrXLG"></div>
+        <p><input type="submit" value="Submit Message" /></p> <!-- Changed button text -->
+    </form>
+
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            // Retrieve reCAPTCHA response
+            var captchaResponse = grecaptcha.getResponse();
+
+            // Validate if the reCAPTCHA is completed
+            if (!captchaResponse) {
+                event.preventDefault(); // Prevent form submission
+                alert("Please complete the reCAPTCHA."); // Notify user
+            } else {
+                alert("Your message has been sent successfully!"); // Confirmation message
+            }
+        });
+    </script>
+</body>
+</html>
